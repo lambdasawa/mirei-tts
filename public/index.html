@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>郡道美玲 Text to Speech</title>
+    <style>
+      body {
+        text-align: center;
+      }
+    </style>
+    <script>
+      const initialText = "挨拶はまた後で。";
+
+      const speech = () => {
+        const text = document.getElementById("text").value;
+        console.log(text);
+
+        new Audio(`/speech?text=${text}`).play();
+      };
+
+      const initText = () => {
+        document.getElementById("text").value = initialText;
+      };
+
+      const initSpeechButton = () => {
+        document.getElementById("speech").onclick = speech;
+      };
+
+      window.addEventListener("DOMContentLoaded", event => {
+        initText();
+        initSpeechButton();
+      });
+    </script>
+  </head>
+  <body>
+    <h1>郡道美玲 Text to Speech</h1>
+    <div>
+      <textarea name="text" id="text" cols="60" rows="10"> </textarea>
+    </div>
+    <div><button id="speech">しゃべる</button></div>
+    <div>
+      <a href="https://twitter.com/g9v9g_mirei/status/1234580166229159939"
+        >切り抜き元</a
+      >
+    </div>
+  </body>
+</html>
