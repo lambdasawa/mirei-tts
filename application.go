@@ -97,6 +97,9 @@ func generatePronounce(text string) string {
 		if len(features) > 0 {
 			p = features[len(features)-1]
 		}
+		if p == "*" {
+			p = t.Surface
+		}
 
 		if p == "" {
 			continue
