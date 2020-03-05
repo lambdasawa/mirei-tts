@@ -2,11 +2,12 @@ package router
 
 import (
 	"mirei-tts/web/endpoint/speech"
-
-	"github.com/labstack/echo/v4"
+	"mirei-tts/web/server"
 )
 
-func Set(e *echo.Echo) {
-	e.File("/", "public/index.html")
-	e.GET("/speech", speech.Get)
+func Set(s *server.Server) {
+	s.Echo.File("/", "public/index.html")
+	speech.Set(s)
+
+	s.Log.Info("routing initialized", nil)
 }

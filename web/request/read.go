@@ -22,6 +22,7 @@ func Read(c echo.Context, req interface{}) error {
 			Err: fmt.Errorf("bind request: %v", err),
 		}
 	}
+	c.Set("req", req)
 
 	if err := c.Validate(req); err != nil {
 		return ReadError{

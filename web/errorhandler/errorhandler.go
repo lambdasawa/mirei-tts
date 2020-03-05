@@ -3,8 +3,8 @@ package errorhandler
 import (
 	"errors"
 	"fmt"
-	"log"
 	"mirei-tts/web/request"
+	"mirei-tts/web/server"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -16,26 +16,27 @@ type (
 	}
 )
 
-func Set(e *echo.Echo) {
-	e.HTTPErrorHandler = func(err error, c echo.Context) {
-		handleHTTPError(c, e, err)
+func Set(s *server.Server) {
+	s.Echo.HTTPErrorHandler = func(err error, c echo.Context) {
+		handleHTTPError(c, s, err)
 	}
+
+	s.Log.Info("http error handler initialized", nil)
 }
 
-func handleHTTPError(c echo.Context, e *echo.Echo, err error) {
+func handleHTTPError(c echo.Context, s *server.Server, err error) {
 	{
 		if errors.As(err, &request.ReadError{}) {
-			sendErrorJSON(c, http.StatusBadRequest, "Failed to read request.")
+			sendErrorJSON(s, c, http.StatusBadRequest, "Failed to read request.")
 			return
 		}
 	}
 
-	e.DefaultHTTPErrorHandler(err, c)
-
+	s.Echo.DefaultHTTPErrorHandler(err, c)
 }
 
-func sendErrorJSON(c echo.Context, status int, msg string) {
+func sendErrorJSON(s *server.Server, c echo.Context, status int, msg string) {
 	if err := c.JSON(status, ErrorRes{Message: msg}); err != nil {
-		log.Println(fmt.Errorf("send error json: %v", err))
+		s.Log.Warn(fmt.Sprintf("send error json: %v", err), nil)
 	}
 }

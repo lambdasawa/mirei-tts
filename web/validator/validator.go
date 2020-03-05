@@ -1,8 +1,9 @@
 package validator
 
 import (
+	"mirei-tts/web/server"
+
 	"github.com/go-playground/validator"
-	"github.com/labstack/echo/v4"
 )
 
 type (
@@ -11,8 +12,10 @@ type (
 	}
 )
 
-func Set(e *echo.Echo) {
-	e.Validator = &CustomValidator{validator: validator.New()}
+func Set(s *server.Server) {
+	s.Echo.Validator = &CustomValidator{validator: validator.New()}
+
+	s.Log.Info("validator intialized", nil)
 }
 
 func (cv *CustomValidator) Validate(i interface{}) error {
