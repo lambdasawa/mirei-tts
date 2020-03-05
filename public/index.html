@@ -16,7 +16,13 @@
         const text = document.getElementById("text").value;
         console.log(text);
 
-        new Audio(`/speech?text=${text}`).play();
+        const audio = new Audio(`/speech?text=${text}`);
+        audio.onerror = error => {
+          console.error(error);
+          alert("音声作成に失敗しました…。");
+        };
+
+        audio.play();
       };
 
       const initText = () => {
