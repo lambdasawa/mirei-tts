@@ -11,14 +11,15 @@ import (
 	"github.com/faiface/beep"
 	"github.com/faiface/beep/mp3"
 	"github.com/faiface/beep/wav"
+	"github.com/go-playground/validator"
 	"github.com/ikawaha/kagome/tokenizer"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 type (
-	SpeechReq struct {
-		Text string `query:"text"`
+	CustomValidator struct {
+		validator *validator.Validate
 	}
 )
 
@@ -26,8 +27,17 @@ const (
 	VoiceDir = "./voice"
 )
 
+type SpeechReq struct {
+	Text string `query:"text" validate:"required,max=140"`
+}
+
+func (cv *CustomValidator) Validate(i interface{}) error {
+	return cv.validator.Struct(i)
+}
+
 func main() {
 	e := echo.New()
+	e.Validator = &CustomValidator{validator: validator.New()}
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.File("/", "public/index.html")
@@ -39,6 +49,9 @@ func speech(c echo.Context) error {
 	var req SpeechReq
 	if err := c.Bind(&req); err != nil {
 		return fmt.Errorf("parse request: %v", err)
+	}
+	if err := c.Validate(req); err != nil {
+		return fmt.Errorf("validate request: %v", err)
 	}
 	log.Printf("speech request: %+v", req)
 
