@@ -1,4 +1,7 @@
-.PHONY: deploy
+.PHONY: dev deploy
+
+dev:
+	go run application.go
 
 deploy:
 	git add -f voice/*
