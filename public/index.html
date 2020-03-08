@@ -12,6 +12,19 @@
     <script>
       const initialText = "挨拶はまた後で。";
 
+      const updateText = () => {
+        fetch("/text", {}).then(async response => {
+          const json = await response.json();
+          const text = json["text"];
+
+          console.log(json, text);
+
+          if (text) {
+            document.getElementById("text").value = text;
+          }
+        });
+      };
+
       const speech = () => {
         const text = document.getElementById("text").value;
         console.log(text);
@@ -29,12 +42,17 @@
         document.getElementById("text").value = initialText;
       };
 
+      const initUpdateTextButton = () => {
+        document.getElementById("update").onclick = updateText;
+      };
+
       const initSpeechButton = () => {
         document.getElementById("speech").onclick = speech;
       };
 
       window.addEventListener("DOMContentLoaded", event => {
         initText();
+        initUpdateTextButton();
         initSpeechButton();
       });
     </script>
@@ -44,7 +62,10 @@
     <div>
       <textarea name="text" id="text" cols="60" rows="10"> </textarea>
     </div>
-    <div><button id="speech">しゃべる</button></div>
+    <div>
+      <button id="update">文章生成</button>
+      <button id="speech">しゃべる</button>
+    </div>
     <div>
       <a href="https://twitter.com/g9v9g_mirei/status/1234580166229159939"
         >切り抜き元</a
