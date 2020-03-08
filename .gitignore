@@ -1,5 +1,9 @@
 # Applcation files
 voice/*.mp3
+text.json
+tweet.json
+sentence.json
+text-seed.json
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
