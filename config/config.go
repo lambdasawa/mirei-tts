@@ -17,3 +17,11 @@ func GetVoiceDirectory() string {
 	}
 	return value
 }
+
+func GetTextSeedPath() string {
+	value := os.Getenv("MTTS_TEXT_SEED_PATH")
+	if value == "" {
+		return "text-seed.json"
+	}
+	return value
+}
