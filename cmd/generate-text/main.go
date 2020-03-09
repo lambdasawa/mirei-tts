@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -188,7 +189,12 @@ func createSentenceList(tweets []twitter.Tweet) ([]Sentence, error) {
 	t := tokenizer.New()
 
 	for _, tweet := range tweets {
-		tokens := t.Tokenize(tweet.Text)
+		text := cleanText(tweet.Text)
+		if text == "" {
+			continue
+		}
+
+		tokens := t.Tokenize(text)
 
 		words := make([]string, 0)
 		for _, token := range tokens {
@@ -202,12 +208,30 @@ func createSentenceList(tweets []twitter.Tweet) ([]Sentence, error) {
 		}
 
 		list = append(list, Sentence{
-			Original: tweet.Text,
+			Original: text,
 			Words:    words,
 		})
 	}
 
 	return list, nil
+}
+
+var (
+	removingRegexpList = []*regexp.Regexp{
+		regexp.MustCompile(`(http|https)://[\w-]+.[\w-]+[/\w-_?&=#]*`),
+		regexp.MustCompile(`【`),
+		regexp.MustCompile(`】`),
+	}
+)
+
+func cleanText(text string) string {
+	t := text
+
+	for _, r := range removingRegexpList {
+		t = r.ReplaceAllString(t, "")
+	}
+
+	return t
 }
 
 func generateTextSeed(sentences []Sentence, order int) TextSeed {
