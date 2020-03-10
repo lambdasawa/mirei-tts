@@ -4,6 +4,8 @@ text.json
 tweet.json
 sentence.json
 text-seed.json
+tmp/dic/
+ipa.dic
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
