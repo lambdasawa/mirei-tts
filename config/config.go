@@ -25,3 +25,11 @@ func GetTextSeedPath() string {
 	}
 	return value
 }
+
+func GetDictionaryPath() string {
+	value := os.Getenv("MTTS_DICTIONARY_PATH")
+	if value == "" {
+		return "ipa.dic"
+	}
+	return value
+}

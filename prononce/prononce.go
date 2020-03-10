@@ -1,11 +1,53 @@
 package prononce
 
-import "github.com/ikawaha/kagome/tokenizer"
+import (
+	"fmt"
+	"mirei-tts/config"
+	"sync"
 
-func Generate(text string) string {
+	"github.com/ikawaha/kagome/tokenizer"
+)
+
+var (
+	globalTokenizer *tokenizer.Tokenizer
+	mutex           = new(sync.Mutex)
+)
+
+func init() {
+	go func() {
+		_, _ = getTokenizer() // initialize asynchronously
+	}()
+}
+
+func getTokenizer() (*tokenizer.Tokenizer, error) {
+	mutex.Lock() // initialized asynchronously
+	defer mutex.Unlock()
+
+	if globalTokenizer != nil {
+		return globalTokenizer, nil
+	}
+
+	dic, err := tokenizer.NewDic(config.GetDictionaryPath())
+	if err != nil {
+		return nil, err
+	}
+
+	t := tokenizer.NewWithDic(dic)
+
+	globalTokenizer = &t
+
+	return globalTokenizer, nil
+}
+
+func Generate(text string) (string, error) {
 	prononce := ""
 
-	tokens := tokenizer.New().Tokenize(text)
+	tokenizer, err := getTokenizer()
+	if err != nil {
+		return "", fmt.Errorf("get tokenizer: %v", err)
+	}
+
+	tokens := tokenizer.Tokenize(text) // take long time...
 	for _, t := range tokens {
 		p := ""
 
@@ -24,5 +66,5 @@ func Generate(text string) string {
 		prononce += p
 	}
 
-	return prononce
+	return prononce, nil
 }

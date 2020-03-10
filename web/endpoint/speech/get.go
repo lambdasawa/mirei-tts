@@ -23,7 +23,10 @@ func (h *handler) get(c echo.Context) error {
 		return fmt.Errorf("read request: %w", err)
 	}
 
-	prononceText := prononce.Generate(req.Text)
+	prononceText, err := prononce.Generate(req.Text)
+	if err != nil {
+		return fmt.Errorf("generate prononce: %v", err)
+	}
 	h.Server.Log.Info("prononce text", map[string]interface{}{
 		"value": prononceText,
 	})

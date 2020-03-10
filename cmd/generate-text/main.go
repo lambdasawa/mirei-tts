@@ -183,10 +183,29 @@ func fetchTweets() ([]twitter.Tweet, error) {
 	return tweets, nil
 }
 
+var (
+	globalTokenizer *tokenizer.Tokenizer
+)
+
+func getTokenizer() (*tokenizer.Tokenizer, error) {
+	if globalTokenizer != nil {
+		return globalTokenizer, nil
+	}
+
+	dic, err := tokenizer.NewDic(os.Getenv("DICTIONARY_PATH"))
+	if err != nil {
+		return nil, err
+	}
+
+	t := tokenizer.NewWithDic(dic)
+
+	globalTokenizer = &t
+
+	return globalTokenizer, nil
+}
+
 func createSentenceList(tweets []twitter.Tweet) ([]Sentence, error) {
 	list := make([]Sentence, 0)
-
-	t := tokenizer.New()
 
 	for _, tweet := range tweets {
 		text := cleanText(tweet.Text)
@@ -194,7 +213,11 @@ func createSentenceList(tweets []twitter.Tweet) ([]Sentence, error) {
 			continue
 		}
 
-		tokens := t.Tokenize(text)
+		tokenizer, err := getTokenizer()
+		if err != nil {
+			return nil, err
+		}
+		tokens := tokenizer.Tokenize(text)
 
 		words := make([]string, 0)
 		for _, token := range tokens {
