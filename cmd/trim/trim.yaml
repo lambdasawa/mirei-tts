@@ -3,18 +3,315 @@
 OriginalFilePath: あいうえお郡道.wav
 OutputDirectoryPath: trim/
 FileDefList:
-  - Name: あ
-    Start: 1.20s
-    Duration: 0.30s
-  - Name: い
-    Start: 1.60s
-    Duration: 0.30s
-  - Name: う
-    Start: 2.90s
-    Duration: 0.30s
-  - Name: え
-    Start: 3.60s
-    Duration: 0.30s
-  - Name: お
-    Start: 5.00s
-    Duration: 0.30s
+  - Name: ア
+    Start: 1.2s
+    Duration: 0.3s
+  - Name: イ
+    Start: 1.6s
+    Duration: 0.3s
+  - Name: ウ
+    Start: 2.9s
+    Duration: 0.3s
+  - Name: エ
+    Start: 3.6s
+    Duration: 0.3s
+  - Name: オ
+    Start: 5.0s
+    Duration: 0.3s
+  - Name: カ
+    Start: 5.8s
+    Duration: 0.3s
+  - Name: キ
+    Start: 6.8s
+    Duration: 0.3s
+  - Name: ク
+    Start: 7.9s
+    Duration: 0.3s
+  - Name: ケ
+    Start: 8.9s
+    Duration: 0.3s
+  - Name: コ
+    Start: 9.8s
+    Duration: 0.3s
+  - Name: サ
+    Start: 10.8s
+    Duration: 0.3s
+  - Name: シ
+    Start: 11.8s
+    Duration: 0.3s
+  - Name: ス
+    Start: 12.9s
+    Duration: 0.3s
+  - Name: セ
+    Start: 13.9s
+    Duration: 0.3s
+  - Name: ソ
+    Start: 14.9s
+    Duration: 0.3s
+  - Name: タ
+    Start: 15.8s
+    Duration: 0.3s
+  - Name: チ
+    Start: 16.8s
+    Duration: 0.3s
+  - Name: ツ
+    Start: 18.0s
+    Duration: 0.3s
+  - Name: テ
+    Start: 18.9s
+    Duration: 0.3s
+  - Name: ト
+    Start: 20.0s
+    Duration: 0.3s
+  - Name: ナ
+    Start: 20.9s
+    Duration: 0.3s
+  - Name: ニ
+    Start: 22.0s
+    Duration: 0.3s
+  - Name: ヌ
+    Start: 23.0s
+    Duration: 0.3s
+  - Name: ネ
+    Start: 24.0s
+    Duration: 0.3s
+  - Name: ノ
+    Start: 25.0s
+    Duration: 0.3s
+  - Name: ハ
+    Start: 26.1s
+    Duration: 0.3s
+  - Name: ヒ
+    Start: 27.1s
+    Duration: 0.3s
+  - Name: フ
+    Start: 28.1s
+    Duration: 0.3s
+  - Name: ヘ
+    Start: 29.2s
+    Duration: 0.3s
+  - Name: ホ
+    Start: 30.2s
+    Duration: 0.3s
+  - Name: マ
+    Start: 31.2s
+    Duration: 0.3s
+  - Name: ミ
+    Start: 32.2s
+    Duration: 0.3s
+  - Name: ム
+    Start: 33.3s
+    Duration: 0.3s
+  - Name: メ
+    Start: 34.3s
+    Duration: 0.3s
+  - Name: モ
+    Start: 35.3s
+    Duration: 0.3s
+  - Name: ヤ
+    Start: 36.4s
+    Duration: 0.3s
+  - Name: ユ
+    Start: 37.4s
+    Duration: 0.3s
+  - Name: ヨ
+    Start: 38.5s
+    Duration: 0.3s
+  - Name: ラ
+    Start: 39.6s
+    Duration: 0.3s
+  - Name: リ
+    Start: 40.6s
+    Duration: 0.3s
+  - Name: ル
+    Start: 41.6s
+    Duration: 0.3s
+  - Name: レ
+    Start: 42.7s
+    Duration: 0.3s
+  - Name: ロ
+    Start: 43.7s
+    Duration: 0.3s
+  - Name: ワ
+    Start: 44.7s
+    Duration: 0.3s
+  - Name: ヲ
+    Start: 45.8s
+    Duration: 0.3s
+  - Name: ン
+    Start: 46.8s
+    Duration: 0.3s
+  - Name: ガ
+    Start: 49.0s
+    Duration: 0.3s
+  - Name: ギ
+    Start: 49.8s
+    Duration: 0.3s
+  - Name: グ
+    Start: 50.9s
+    Duration: 0.3s
+  - Name: ゲ
+    Start: 52.0s
+    Duration: 0.3s
+  - Name: ゴ
+    Start: 52.9s
+    Duration: 0.3s
+  - Name: ザ
+    Start: 53.9s
+    Duration: 0.3s
+  - Name: ジ
+    Start: 54.9s
+    Duration: 0.3s
+  - Name: ズ
+    Start: 55.9s
+    Duration: 0.3s
+  - Name: ゼ
+    Start: 57.0s
+    Duration: 0.3s
+  - Name: ゾ
+    Start: 58.0s
+    Duration: 0.3s
+  - Name: ダ
+    Start: 59.0s
+    Duration: 0.3s
+  - Name: ヂ
+    Start: 60.0s
+    Duration: 0.3s
+  - Name: ヅ
+    Start: 61.0s
+    Duration: 0.3s
+  - Name: デ
+    Start: 62.1s
+    Duration: 0.3s
+  - Name: ド
+    Start: 63.0s
+    Duration: 0.3s
+  - Name: バ
+    Start: 64.8s
+    Duration: 0.3s
+  - Name: ビ
+    Start: 65.8s
+    Duration: 0.3s
+  - Name: ブ
+    Start: 66.8s
+    Duration: 0.3s
+  - Name: ベ
+    Start: 67.8s
+    Duration: 0.3s
+  - Name: ボ
+    Start: 68.7s
+    Duration: 0.3s
+  - Name: パ
+    Start: 69.8s
+    Duration: 0.3s
+  - Name: ピ
+    Start: 70.8s
+    Duration: 0.3s
+  - Name: プ
+    Start: 71.8s
+    Duration: 0.3s
+  - Name: ペ
+    Start: 72.9s
+    Duration: 0.3s
+  - Name: ポ
+    Start: 73.9s
+    Duration: 0.3s
+  - Name: キャ
+    Start: 74.9s
+    Duration: 0.3s
+  - Name: キュ
+    Start: 76.0s
+    Duration: 0.3s
+  - Name: キョ
+    Start: 77.1s
+    Duration: 0.3s
+  - Name: シャ
+    Start: 78.1s
+    Duration: 0.3s
+  - Name: シュ
+    Start: 79.1s
+    Duration: 0.3s
+  - Name: ショ
+    Start: 80.2s
+    Duration: 0.3s
+  - Name: チャ
+    Start: 81.4s
+    Duration: 0.3s
+  - Name: チュ
+    Start: 82.4s
+    Duration: 0.3s
+  - Name: チョ
+    Start: 83.5s
+    Duration: 0.3s
+  - Name: ニャ
+    Start: 84.4s
+    Duration: 0.3s
+  - Name: ニュ
+    Start: 85.4s
+    Duration: 0.3s
+  - Name: ニョ
+    Start: 86.5s
+    Duration: 0.3s
+  - Name: ヒャ
+    Start: 87.5s
+    Duration: 0.3s
+  - Name: ヒュ
+    Start: 90.2s
+    Duration: 0.3s
+  - Name: ヒョ
+    Start: 91.1s
+    Duration: 0.3s
+  - Name: ミャ
+    Start: 92.1s
+    Duration: 0.3s
+  - Name: ミュ
+    Start: 93.1s
+    Duration: 0.3s
+  - Name: ミョ
+    Start: 94.1s
+    Duration: 0.3s
+  - Name: リャ
+    Start: 95.1s
+    Duration: 0.3s
+  - Name: リュ
+    Start: 96.2s
+    Duration: 0.3s
+  - Name: リョ
+    Start: 97.3s
+    Duration: 0.3s
+  - Name: ギャ
+    Start: 98.2s
+    Duration: 0.3s
+  - Name: ギュ
+    Start: 99.2s
+    Duration: 0.3s
+  - Name: ギョ
+    Start: 100.3s
+    Duration: 0.3s
+  - Name: ジャ
+    Start: 101.4s
+    Duration: 0.3s
+  - Name: ジュ
+    Start: 102.5s
+    Duration: 0.3s
+  - Name: ジョ
+    Start: 103.5s
+    Duration: 0.3s
+  - Name: ビャ
+    Start: 104.6s
+    Duration: 0.3s
+  - Name: ビュ
+    Start: 105.6s
+    Duration: 0.3s
+  - Name: ビョ
+    Start: 106.7s
+    Duration: 0.3s
+  - Name: ピャ
+    Start: 107.7s
+    Duration: 0.3s
+  - Name: ピュ
+    Start: 108.6s
+    Duration: 0.3s
+  - Name: ピョ
+    Start: 109.7s
+    Duration: 0.3s
