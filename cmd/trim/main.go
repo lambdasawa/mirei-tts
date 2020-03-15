@@ -1,14 +1,15 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"io/ioutil"
 	"log"
-	"os/exec"
+	"os"
 	"path/filepath"
-	"strings"
+	"time"
 
+	"github.com/faiface/beep"
+	"github.com/faiface/beep/wav"
 	"gopkg.in/yaml.v2"
 )
 
@@ -20,9 +21,9 @@ type (
 	}
 
 	FileDef struct {
-		Name     string `yaml:"Name"`
-		Start    string `yaml:"Start"`
-		Duration string `yaml:"Duration"`
+		Name     string        `yaml:"Name"`
+		Start    time.Duration `yaml:"Start"`
+		Duration time.Duration `yaml:"Duration"`
 	}
 )
 
@@ -51,38 +52,48 @@ func run() error {
 
 	for _, fileDef := range conf.FileDefList {
 		log.Printf("Target = %#v", fileDef)
-
-		cmdName := "sox"
-		cmdArgs := []string{
+		if err := trim(
 			conf.OriginalFilePath,
 			filepath.Join(conf.OutputDirectoryPath, fmt.Sprintf("%s.wav", fileDef.Name)),
-			"trim",
-			fmt.Sprint(fileDef.Start),
-			fmt.Sprint(fileDef.Duration),
+			fileDef.Start,
+			fileDef.Duration,
+		); err != nil {
+			return err
 		}
-
-		var (
-			stdout = new(bytes.Buffer)
-			stderr = new(bytes.Buffer)
-		)
-
-		cmd := exec.Command(cmdName, cmdArgs...)
-		cmd.Stdout = stdout
-		cmd.Stderr = stderr
-		log.Printf("Command = %s %s", cmdName, strings.Join(cmdArgs, " "))
-
-		if err := cmd.Run(); err != nil {
-			log.Printf("sox stdout: %s", stdout.String())
-			log.Printf("sox stderr: %s", stderr.String())
-
-			return fmt.Errorf("run cmd: %v", err)
-		}
-		log.Printf("sox stdout: %s", stdout.String())
-		log.Printf("sox stderr: %s", stderr.String())
-
 	}
 
 	log.Println("Success.")
+
+	return nil
+}
+
+func trim(inFileName, outFileName string, startDuration, lengthDuration time.Duration) error {
+	file, err := os.Open(inFileName)
+	if err != nil {
+		return err
+	}
+
+	streamer, format, err := wav.Decode(file)
+	if err != nil {
+		return err
+	}
+	defer streamer.Close()
+
+	if err := streamer.Seek(format.SampleRate.N(startDuration)); err != nil {
+		return err
+	}
+
+	s := beep.Take(format.SampleRate.N(lengthDuration), streamer)
+
+	outFile, err := os.OpenFile(outFileName, os.O_WRONLY|os.O_CREATE, 0644)
+	if err != nil {
+		return err
+	}
+	defer outFile.Close()
+
+	if err := wav.Encode(outFile, s, format); err != nil {
+		return err
+	}
 
 	return nil
 }
