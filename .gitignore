@@ -6,6 +6,8 @@ text-seed.json
 ipa.dic
 cmd/trim/あいうえお郡道.wav
 mirei-tts
+data
+data.zip
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
