@@ -8,14 +8,13 @@ import (
 	"path/filepath"
 
 	"github.com/faiface/beep"
-	"github.com/faiface/beep/mp3"
 	"github.com/faiface/beep/wav"
 )
 
 func Generate(prononce string) (string, error) {
 	sourcePaths := []string{}
 	for _, p := range prononce {
-		soundPath := filepath.Join(config.GetVoiceDirectory(), fmt.Sprintf("%c.mp3", p))
+		soundPath := filepath.Join(config.GetVoiceDirectory(), fmt.Sprintf("%c.wav", p))
 
 		if _, err := os.Stat(soundPath); err != nil {
 			continue
@@ -51,7 +50,7 @@ func merge(destPath string, sourcePaths []string) error {
 		}
 		defer f.Close()
 
-		streamer, format, err := mp3.Decode(f)
+		streamer, format, err := wav.Decode(f)
 		if err != nil {
 			return err
 		}
