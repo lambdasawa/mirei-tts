@@ -14,7 +14,7 @@ tar zxf mecab-ipadic.tar.gz
 
 # fetch neologd
 # https://github.com/neologd/mecab-ipadic-neologd
-curl -sSL -o mecab-user-dict-seed.csv.xz https://github.com/neologd/mecab-ipadic-neologd/raw/master/seed/mecab-user-dict-seed.20200130.csv.xz
+curl -sSL -o mecab-user-dict-seed.csv.xz https://github.com/neologd/mecab-ipadic-neologd/raw/5cadccf5c20f1cb0ab6bf967a58dd7338400dd38/seed/mecab-user-dict-seed.20200312.csv.xz
 unxz mecab-user-dict-seed.csv.xz
 
 # fetch kagome tools
