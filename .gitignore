@@ -1,5 +1,11 @@
 # Applcation files
-voice/*.mp3
+voice/
+tweet.json
+sentence.json
+text-seed.json
+ipa.dic
+cmd/trim/あいうえお郡道.wav
+mirei-tts
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
