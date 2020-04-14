@@ -29,3 +29,10 @@ archive-data:
 		mirei-tts \
 		data/
 	zip -r data.zip data
+
+# Save data used by application to Amazon S3.
+# Usage: make save-data BUCKET=mireittsstack-databucketxxxxx
+save-data:
+	aws s3 cp --recursive ./voice s3://${BUCKET}/voice/
+	aws s3 cp ./text-seed.json s3://${BUCKET}/text-seed.json
+	aws s3 cp ./ipa.dic s3://${BUCKET}/ipa.dic
