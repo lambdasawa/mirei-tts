@@ -1,4 +1,4 @@
-.PHONY: dev deploy
+.PHONY: dev deploy run-container
 
 dev:
 	go run application.go
@@ -8,6 +8,10 @@ deploy:
 	eb setenv GOPATH='/tmp/go'
 	eb deploy --staged
 	git restore --staged voice/* text-seed.json ipa.dic
+
+run-container:
+	docker build -t mirei-tts .
+	docker run --rm --interactive --tty --publish 5000 mirei-tts
 
 generate-dictionary:
 	./bin/generate-dictionary.sh
