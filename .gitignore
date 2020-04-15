@@ -10,6 +10,9 @@ mirei-tts
 data
 data.zip
 
+# direnv
+.env
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
