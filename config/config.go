@@ -2,34 +2,34 @@ package config
 
 import "os"
 
-func GetAddress() string {
-	value := os.Getenv("MTTS_ADDRESS")
+type (
+	Config struct {
+		Address            string
+		DataBucket         string
+		DataBucketPrefix   string
+		DataLocalPrefix    string
+		VoiceDirectoryName string
+		TextSeedName       string
+		DictionaryName     string
+	}
+)
+
+func getEnvWithDefault(key string, defaultValue string) string {
+	value := os.Getenv(key)
 	if value == "" {
-		return ":5000"
+		return defaultValue
 	}
 	return value
 }
 
-func GetVoiceDirectory() string {
-	value := os.Getenv("MTTS_VOICE_DIRECTORY")
-	if value == "" {
-		return "voice"
+func GetConfig() Config {
+	return Config{
+		Address:            getEnvWithDefault("MTTS_ADDRESS", ":5000"),
+		DataBucket:         getEnvWithDefault("MTTS_DATA_BUCKET", "mireittsstack-databucketxxxx-xxxx"),
+		DataBucketPrefix:   getEnvWithDefault("MTTS_DATA_BUCKET_PREFIX", ""),
+		DataLocalPrefix:    getEnvWithDefault("MTTS_DATA_LOCAL_PREFIX", "data"),
+		VoiceDirectoryName: getEnvWithDefault("DATA_VOICE_DIRECTORY_NAME", "voice"),
+		TextSeedName:       getEnvWithDefault("DATA_TEXT_SEED_NAME", "text-seed.json"),
+		DictionaryName:     getEnvWithDefault("DATA_DICTIONARY_NAME", "ipa.dic"),
 	}
-	return value
-}
-
-func GetTextSeedPath() string {
-	value := os.Getenv("MTTS_TEXT_SEED_PATH")
-	if value == "" {
-		return "text-seed.json"
-	}
-	return value
-}
-
-func GetDictionaryPath() string {
-	value := os.Getenv("MTTS_DICTIONARY_PATH")
-	if value == "" {
-		return "ipa.dic"
-	}
-	return value
 }

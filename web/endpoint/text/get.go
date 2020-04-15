@@ -7,6 +7,7 @@ import (
 	"math/rand"
 	"mirei-tts/config"
 	"net/http"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -32,7 +33,8 @@ const (
 )
 
 func (h *handler) get(c echo.Context) error {
-	bytes, err := ioutil.ReadFile(config.GetTextSeedPath())
+	conf := config.GetConfig()
+	bytes, err := ioutil.ReadFile(filepath.Join(conf.DataLocalPrefix, conf.TextSeedName))
 	if err != nil {
 		return fmt.Errorf("open text-seed.json: %v", err)
 	}
