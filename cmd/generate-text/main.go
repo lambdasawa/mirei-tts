@@ -32,7 +32,7 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	println("get tweet")
-	tweetDataPath := os.Getenv("TWEET_DATA_PATH")
+	tweetDataPath := os.Getenv("MTTS_TWEET_DATA_PATH")
 	tweets := make([]twitter.Tweet, 0)
 	if err := getOrFetch(tweetDataPath, &tweets, func() (interface{}, error) {
 		println("fetch tweet")
@@ -54,7 +54,7 @@ func main() {
 	}
 
 	println("get sentence")
-	sentenceDataPath := os.Getenv("SENTENCE_DATA_PATH")
+	sentenceDataPath := os.Getenv("MTTS_SENTENCE_DATA_PATH")
 	sentenceList := make([]Sentence, 0)
 	if err := getOrFetch(sentenceDataPath, &sentenceList, func() (interface{}, error) {
 		println("find sentence")
@@ -76,7 +76,7 @@ func main() {
 	}
 
 	println("get text seed")
-	textSeedDataPath := os.Getenv("TEXT_SEED_PATH")
+	textSeedDataPath := os.Getenv("MTTS_TEXT_SEED_PATH")
 	textSeed := TextSeed{}
 	if err := getOrFetch(textSeedDataPath, &textSeed, func() (interface{}, error) {
 		println("find text seed")
@@ -134,22 +134,22 @@ func save(dataPath string, value interface{}) error {
 
 func fetchTweets() ([]twitter.Tweet, error) {
 	config := oauth1.NewConfig(
-		os.Getenv("TWITTER_CONSUMER_KEY"),
-		os.Getenv("TWITTER_CONSUMER_SECRET"),
+		os.Getenv("MTTS_TWITTER_CONSUMER_KEY"),
+		os.Getenv("MTTS_TWITTER_CONSUMER_SECRET"),
 	)
 	token := oauth1.NewToken(
-		os.Getenv("TWITTER_ACCESS_TOKEN"),
-		os.Getenv("TWITTER_ACCESS_SECRET"),
+		os.Getenv("MTTS_TWITTER_ACCESS_TOKEN"),
+		os.Getenv("MTTS_TWITTER_ACCESS_SECRET"),
 	)
 	httpClient := config.Client(oauth1.NoContext, token)
 	client := twitter.NewClient(httpClient)
 
-	pageSize, _ := strconv.Atoi(os.Getenv("TWEET_PAGE_SIZE"))
+	pageSize, _ := strconv.Atoi(os.Getenv("MTTS_TWEET_PAGE_SIZE"))
 	if pageSize == 0 {
 		pageSize = 200
 	}
 
-	pageCount, _ := strconv.Atoi(os.Getenv("TWEET_PAGE_COUNT"))
+	pageCount, _ := strconv.Atoi(os.Getenv("MTTS_TWEET_PAGE_COUNT"))
 	if pageCount == 0 {
 		pageCount = 10
 	}
@@ -158,7 +158,7 @@ func fetchTweets() ([]twitter.Tweet, error) {
 	tweets := make([]twitter.Tweet, 0)
 	for i := 0; i < pageCount; i++ {
 		ts, resp, err := client.Timelines.UserTimeline(&twitter.UserTimelineParams{
-			ScreenName:      os.Getenv("TARGET_SCREEN_NAME"),
+			ScreenName:      os.Getenv("MTTS_TARGET_SCREEN_NAME"),
 			ExcludeReplies:  twitter.Bool(true),
 			IncludeRetweets: twitter.Bool(false),
 			TrimUser:        twitter.Bool(true),
@@ -192,7 +192,7 @@ func getTokenizer() (*tokenizer.Tokenizer, error) {
 		return globalTokenizer, nil
 	}
 
-	dic, err := tokenizer.NewDic(os.Getenv("DICTIONARY_PATH"))
+	dic, err := tokenizer.NewDic(os.Getenv("MTTS_DICTIONARY_PATH"))
 	if err != nil {
 		return nil, err
 	}

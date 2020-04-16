@@ -1,38 +1,36 @@
-.PHONY: dev deploy run-container
+.PHONY: \
+	dev \
+	run-local \
+	run-container \
+	deploy \
+	generate-data \
+	save-data
 
+# Run app with live restart.
+# Use https://github.com/watchexec/watchexec .
 dev:
+	watchexec -r -e go -- make run-local
+
+# Run app in local host machine.
+run-local:
 	go run application.go
 
-deploy:
-	git add -f voice/* text-seed.json ipa.dic
-	eb setenv GOPATH='/tmp/go'
-	eb deploy --staged
-	git restore --staged voice/* text-seed.json ipa.dic
-
+# Run app in container.
 run-container:
 	docker build -t mirei-tts .
 	docker run --rm --interactive --tty --publish 5000 mirei-tts
 
-generate-dictionary:
-	./bin/generate-dictionary.sh
+# Deploy to AWS.
+deploy:
+	cd infra && yarn cdk deploy
 
-archive-data:
-	rm -rf data
-	mkdir data
-	cp -r \
-		voice/ \
-		tweet.json \
-		sentence.json \
-		text-seed.json \
-		ipa.dic \
-		cmd/trim/あいうえお郡道.wav \
-		mirei-tts \
-		data/
-	zip -r data.zip data
+# Generate static files.
+generate-data:
+	./generator/clean.sh
+	./generator/generate-voice.sh
+	./generator/generate-dictionary.sh
+	./generator/generate-text-seed.sh
 
-# Save data used by application to Amazon S3.
-# Usage: make save-data BUCKET=mireittsstack-databucketxxxxx
+# Save static files used by app to Amazon S3.
 save-data:
-	aws s3 cp --recursive ./voice s3://${BUCKET}/voice/
-	aws s3 cp ./text-seed.json s3://${BUCKET}/text-seed.json
-	aws s3 cp ./ipa.dic s3://${BUCKET}/ipa.dic
+	aws s3 cp --recursive ./${MTTS_DATA_LOCAL_PREFIX}/ s3://${MTTS_DATA_BUCKET}/
