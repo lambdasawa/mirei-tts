@@ -1,16 +1,6 @@
 # Applcation files
-voice/
-tweet.json
-sentence.json
-text-seed.json
-tmp/dic/
-ipa.dic
-cmd/trim/あいうえお郡道.wav
-mirei-tts
 data
 data.zip
 
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+# direnv
+.env

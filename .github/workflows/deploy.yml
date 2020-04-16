@@ -1,0 +1,40 @@
+on:
+  push:
+    branches:
+      - master
+
+name: Deploy
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+      - name: make deploy
+        run: |
+          sudo apt-get install -yqq
+
+          # setup env vars
+          sudo apt-get install direnv
+          echo $DOTENV | base64 -d | grep -v AWS_ > .env
+          direnv allow .
+
+          # fetch static files
+          direnv exec . make fetch-data
+
+          # deploy!
+          # build docker image, push docker image to ECR, deploy to ECS.
+          direnv exec . make deploy
+        env:
+          DOTENV: ${{ secrets.DOTENV }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

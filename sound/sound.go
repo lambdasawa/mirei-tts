@@ -12,9 +12,11 @@ import (
 )
 
 func Generate(prononce string) (string, error) {
+	conf := config.GetConfig()
+
 	sourcePaths := []string{}
 	for _, p := range prononce {
-		soundPath := filepath.Join(config.GetVoiceDirectory(), fmt.Sprintf("%c.wav", p))
+		soundPath := filepath.Join(conf.DataLocalPrefix, conf.VoiceDirectoryName, fmt.Sprintf("%c.wav", p))
 
 		if _, err := os.Stat(soundPath); err != nil {
 			continue

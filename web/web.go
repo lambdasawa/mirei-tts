@@ -27,5 +27,5 @@ func Start() error {
 
 	server.Log.Info("server initialized", nil)
 
-	return server.Echo.Start(config.GetAddress())
+	return server.Echo.Start(config.GetConfig().Address)
 }

@@ -3,6 +3,7 @@ package prononce
 import (
 	"fmt"
 	"mirei-tts/config"
+	"path/filepath"
 	"sync"
 
 	"github.com/ikawaha/kagome/tokenizer"
@@ -27,7 +28,8 @@ func getTokenizer() (*tokenizer.Tokenizer, error) {
 		return globalTokenizer, nil
 	}
 
-	dic, err := tokenizer.NewDic(config.GetDictionaryPath())
+	conf := config.GetConfig()
+	dic, err := tokenizer.NewDic(filepath.Join(conf.DataLocalPrefix, conf.DictionaryName))
 	if err != nil {
 		return nil, err
 	}

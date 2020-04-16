@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -28,10 +29,16 @@ type (
 )
 
 var (
-	configPath = "trim.yaml"
+	configPath string
 )
 
+func init() {
+	flag.StringVar(&configPath, "config", "trim.yml", "trimming setting file path")
+	flag.Parse()
+}
+
 func main() {
+
 	if err := run(); err != nil {
 		log.Fatal("Failure.", err)
 	}

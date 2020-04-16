@@ -1,7 +1,7 @@
 # sample config file
 
-OriginalFilePath: あいうえお郡道.wav
-OutputDirectoryPath: trim/
+OriginalFilePath: ./data/あいうえお郡道.wav
+OutputDirectoryPath: ./data/voice/
 FileDefList:
   - Name: ア
     Start: 1.2s
