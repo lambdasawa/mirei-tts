@@ -1,0 +1,7 @@
+data/
+data.zip
+.env/
+infra/
+cdk.out/
+node_modules/
+.git/

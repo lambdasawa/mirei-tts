@@ -22,7 +22,7 @@ run-container:
 
 # Deploy to AWS.
 deploy:
-	cd infra && yarn cdk deploy
+	cd infra && yarn && yarn cdk deploy
 
 # Generate static files.
 generate-data:
@@ -34,3 +34,7 @@ generate-data:
 # Save static files used by app to Amazon S3.
 save-data:
 	aws s3 cp --recursive ./${MTTS_DATA_LOCAL_PREFIX}/ s3://${MTTS_DATA_BUCKET}/
+
+# Fetch static files used by app to Amazon S3.
+fetch-data:
+	aws s3 sync s3://${MTTS_DATA_BUCKET}/ ./${MTTS_DATA_LOCAL_PREFIX}/
