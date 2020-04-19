@@ -31,7 +31,7 @@ export class MireiTTSStack extends cdk.Stack {
     new ecsPatterns.ApplicationLoadBalancedFargateService(this, "Service", {
       cluster,
       memoryLimitMiB: 4096,
-      cpu: 2048,
+      cpu: 512,
       assignPublicIp: true,
       taskImageOptions: {
         image: ecs.ContainerImage.fromEcrRepository(
